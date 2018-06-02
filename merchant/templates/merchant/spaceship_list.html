@@ -1,0 +1,8 @@
+<h1>SpaceShips</h1>
+<ul>
+{% for spaceship in object_list %}
+    <li>{{ spaceship.model }}</li>
+{% empty %}
+    <li>No spaceships yet.</li>
+{% endfor %}
+</ul>
