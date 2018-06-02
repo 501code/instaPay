@@ -15,7 +15,7 @@ class SpaceShipPayment(View):
             phone_number = request.GET.get('phone_number', None)
             item_id = request.GET.get('item_id', None)
             # make a payment
-            item = SpaceShip.objects.get(item=item_id)
+            item = SpaceShip.objects.get(id=item_id)
             payment = Payment.objects.create(phone_number=phone_number, item=item)
             message = str(payment.id)
             status_code = 0
