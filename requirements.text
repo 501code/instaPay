@@ -1,0 +1,5 @@
+Django==2.0.6
+django-qr-code==1.0.0
+pytz==2018.4
+qrcode==6.0
+six==1.11.0

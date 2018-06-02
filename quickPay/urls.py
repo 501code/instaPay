@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from qr_code import urls as qr_code_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('merchant/', include('merchant.urls')),
+    path('qr_code/', include(qr_code_urls, namespace="qr_code")),
 ]

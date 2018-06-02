@@ -1,7 +1,11 @@
+{% load qr_code %}
 <h1>SpaceShips</h1>
 <ul>
 {% for spaceship in object_list %}
-    <li>{{ spaceship.model }}</li>
+    <li>
+        {{ spaceship.model }}
+        {% qr_from_text spaceship.pk size=8 version=12 %}
+    </li>
 {% empty %}
     <li>No spaceships yet.</li>
 {% endfor %}
