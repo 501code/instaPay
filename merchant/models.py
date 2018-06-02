@@ -21,6 +21,7 @@ class Payment(models.Model):
     item = models.ForeignKey(SpaceShip, blank=False, null=False, on_delete=models.DO_NOTHING)
     status = models.CharField(max_length=20, choices=PAYMENT_STATUSES, default=NEW)
     request_response = models.TextField(null=True, blank=True)
+    remote_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return str(self.item) + ' ' + str(self.phone_number)

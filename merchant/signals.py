@@ -21,5 +21,6 @@ def call_payment_api(sender, instance, created, **kwargs):
             send_instructions=True
         )
         instance.request_response = str(response)
+        instance.remote_id = response['id']
         instance.status = Payment.REQUEST_SENT
         instance.save()

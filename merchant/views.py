@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView
 from django.views.generic.base import View
@@ -25,4 +27,11 @@ class SpaceShipPayment(View):
         return JsonResponse({'message': message, 'status_code': status_code})
 
     def post(self, request, *args, **kwargs):
-        pass
+        data = json.loads(request.body)
+        try:
+            remote_id = data['data']['collection_request']['id']
+            payment = Payment.objects.get(remote_id=remote_id)
+            payment.status = data['data']['status']
+        except Exception as e:
+            pass # TODO: Log error
+        return HttpResponse('ok')
