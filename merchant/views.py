@@ -49,3 +49,4 @@ class SpaceShipPayment(View):
         except KeyError as e:
             pass  # TODO: something
         return HttpResponse('ok')
+
