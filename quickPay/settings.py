@@ -25,7 +25,7 @@ SECRET_KEY = '(34-kmr%v9(6*1@*#w1ro60(i_(dhtg0zgv1(hn&8@)84up!#8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'merchant',
     'qr_code',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 BEYONIC_API_KEY = ''
-BEYONIC_CALLBACK_URL = ''

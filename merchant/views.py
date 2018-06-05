@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView
 from django.views.generic.base import View
@@ -11,6 +13,13 @@ class SpaceShipListView(ListView):
 
 class SpaceShipPayment(View):
     def get(self, request, *args, **kwargs):
+        """
+        Get the item_id and phone_number from the QR code client to create a new payment
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: a JSON response indicating failure or success
+        """
         try:
             phone_number = request.GET.get('phone_number', None)
             item_id = request.GET.get('item_id', None)
@@ -25,4 +34,18 @@ class SpaceShipPayment(View):
         return JsonResponse({'message': message, 'status_code': status_code})
 
     def post(self, request, *args, **kwargs):
-        pass
+        """
+        This is callback view that listens to responses from Beyonic when the user has made a payment
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        data = json.loads(request.body)
+        try:
+            remote_id = data['data']['collection_request']['id']
+            payment = Payment.objects.get(remote_id=remote_id)
+            payment.status = data['data']['status']
+        except KeyError as e:
+            pass  # TODO: something
+        return HttpResponse('ok')

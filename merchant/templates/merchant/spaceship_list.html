@@ -1,12 +1,64 @@
-{% load qr_code %}
-<h1>SpaceShips</h1>
-<ul>
-{% for spaceship in object_list %}
-    <li>
-        {{ spaceship.model }}
-        {% qr_from_text spaceship.pk size=8 version=12 %}
-    </li>
-{% empty %}
-    <li>No spaceships yet.</li>
-{% endfor %}
-</ul>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SpaceShip Store</title>
+    {% load bootstrap4 %}
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+
+    {% load static %}
+
+    {% load qr_code %}
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/album.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">SpaceShip Store</h1>
+          <p class="lead text-muted">We give you wings to reach the stars! At reasonable prices.</p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+            {% for spaceship in object_list %}
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="card-img-top" src="{{ spaceship.image.url }}" alt="{{ spaceship.model }}">
+                <div class="card-body">{% qr_from_text spaceship.pk size=6 version=12 %}
+                    <p class="card-text"><h3>{{ spaceship.model }}</h3>{{ spaceship.description }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">{{ spaceship.currency }} {{ spaceship.price }}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <h2>No spaceships yet.</h2>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    {% bootstrap_javascript jquery='full' %}
+  </body>
+</html>
